@@ -1,5 +1,6 @@
 목업배포주소
 https://deepdive-team1.github.io/youtube-mockup/
+https://youtubemockupteam1.netlify.app/
 
 기획서 https://docs.google.com/document/d/1n1w_7GIqhbXqIAJQzJmerdd5vsGFKvEa-kFHn4E5Rv8/edit?usp=sharing
 
