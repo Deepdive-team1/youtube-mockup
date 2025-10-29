@@ -36,6 +36,14 @@ header {
   border: 1px solid gray;
   border-radius: 10px;
 }
+/* 로고 버튼 스타일 */
+.logo-btn {
+  display: flex; /* 아이콘과 텍스트 정렬 */
+  align-items: center; /* 아이콘과 텍스트 정렬 */
+  text-decoration: none; /* 하이퍼링크 밑줄 제거 */
+  color: inherit; /* 하이퍼링크 색상 제거 (기본 텍스트 색상 사용) */
+  font-size: 18px; /* <button>일 때 적용되던 폰트 크기 */
+}
 
 button {
   display: flex;
@@ -249,4 +257,14 @@ body.dark-mode .video-views {
 
 body.dark-mode .channel-icon {
   color: #f1f1f1;
+}
+
+/* * style.css
+ * 파일 맨 아래에 추가
+ */
+
+/* 비디오 카드 링크 스타일 제거 */
+.video-card-link {
+  text-decoration: none;
+  color: inherit; /* 부모 요소의 글자색 상속 */
 }

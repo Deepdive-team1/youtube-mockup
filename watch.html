@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="watch.css" />
+    <title>YouTube - Cat Video</title>
+  </head>
+  <body>
+    <header>
+      <div class="header-left">
+        <button class="menu-btn"><i class="bi bi-list"></i></button>
+        <a href="index.html" class="logo-btn">
+          <i class="bi bi-youtube"></i> <span>YouTube</span>
+        </a>
+      </div>
+
+      <div class="header-center">
+        <input type="text" placeholder="검색" />
+        <button class="search-btn"><i class="bi bi-search"></i></button>
+      </div>
+
+      <div class="header-right">
+        <button class="bell-btn"><i class="bi bi-bell"></i></button>
+        <button class="user-btn"><i class="bi bi-person-circle"></i></button>
+        <button class="toggle-btn"><i class="bi bi-moon"></i></button>
+      </div>
+    </header>
+
+    <main class="watch-container">
+      <section class="video-player-section">
+        <div class="video-player">
+          <img src="images/cat.png" alt="cat video player" />
+        </div>
+
+        <h1 class="watch-title">고양이 Cat 영상 이미지</h1>
+
+        <div class="watch-info-bar">
+          <div class="channel-info">
+            <i class="bi bi-person-circle channel-icon"></i>
+            <div class="channel-text">
+              <p class="channel-name">고양이</p>
+              <p class="channel-subs">구독자 100만명</p>
+            </div>
+            <button class="subscribe-btn">구독</button>
+          </div>
+
+          <div class="action-buttons">
+            <button><i class="bi bi-hand-thumbs-up"></i> 1.2만</button>
+            <button><i class="bi bi-hand-thumbs-down"></i></button>
+            <button><i class="bi bi-share"></i> 공유</button>
+            <button><i class="bi bi-download"></i> 저장</button>
+            <button><i class="bi bi-three-dots"></i></button>
+          </div>
+        </div>
+
+        <div class="description-box">
+          <p>조회수 10만회 • 2일 전</p>
+          <p>
+            귀여운 고양이 영상입니다. <br />
+            매일 새로운 고양이 영상이 올라옵니다.
+          </p>
+        </div>
+        <div class="comments-section">
+            <div class="comments-header">
+                <h3>댓글 2개</h3>
+                <button><i class="bi bi-filter-left"></i> 정렬 기준</button>
+            </div>
+
+            <div class="comment-input-area">
+                <i class="bi bi-person-circle channel-icon"></i>
+                <input type="text" placeholder="댓글 추가..." />
+            </div>
+
+            <div class="comment-list">
+                <div class="comment-item">
+                    <i class="bi bi-person-circle channel-icon"></i>
+                    <div class="comment-text">
+                        <p class="comment-author">
+                        강아지
+                            <span class="comment-date">2일 전</span>
+                        </p>
+                        <p class="comment-body">
+                        정말 귀여운 고양이네요! 저희 집 강아지랑 친구하면 좋겠어요.
+                        </p>
+                        <div class="comment-actions">
+                            <button><i class="bi bi-hand-thumbs-up"></i> 5</button>
+                            <button><i class="bi bi-hand-thumbs-down"></i></button>
+                            <button>답글</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <i class="bi bi-person-circle channel-icon"></i>
+                    <div class="comment-text">
+                        <p class="comment-author">
+                        펭귄
+                        <span class="comment-date">1일 전</span>
+                        </p>
+                        <p class="comment-body">
+                        영상 잘 보고 갑니다. 펭귄 영상도 올려주세요!
+                        </p>
+                        <div class="comment-actions">
+                        <button><i class="bi bi-hand-thumbs-up"></i> 2</button>
+                        <button><i class="bi bi-hand-thumbs-down"></i></button>
+                        <button>답글</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <aside class="playlist-section">
+        <div class="playlist-header">
+          <h3>다음 동영상</h3>
+        </div>
+        <div class="playlist-videos">
+          <a href="#" class="playlist-video-card">
+            <img src="images/dog.png" alt="dog" />
+            <div class="video-text">
+              <h3 class="video-title">강아지 Dog 영상 이미지</h3>
+              <p class="video-channel">강아지</p>
+              <p class="video-views">조회수 10만회 • 2일 전</p>
+            </div>
+          </a>
+          <a href="#" class="playlist-video-card">
+            <img src="images/penguin.png" alt="penguin" />
+            <div class="video-text">
+              <h3 class="video-title">펭귄 Penguin 영상 이미지</h3>
+              <p class="video-channel">펭귄</p>
+              <p class="video-views">조회수 10만회 • 2일 전</p>
+            </div>
+          </a>
+          <a href="#" class="playlist-video-card">
+            <img src="images/cat.png" alt="cat" />
+            <div class="video-text">
+              <h3 class="video-title">고양이 Cat 영상 이미지 (2)</h3>
+              <p class="video-channel">고양이</p>
+              <p class="video-views">조회수 5만회 • 1일 전</p>
+            </div>
+          </a>
+        </div>
+      </aside>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
