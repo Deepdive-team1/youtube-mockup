@@ -211,7 +211,7 @@ h3,
 /* 반응형 */
 
 @media (max-width: 600px) {
-  aside {
+  .sidebar {
     display: none;
   }
 }

@@ -80,6 +80,7 @@ const postPromise = fetch('https://jsonplaceholder.typicode.com/posts')
     // 데이터가 준비된 후에 렌더링 및 페이지 로딩 함수 호출
     if (window.location.pathname.includes('watch.html')) {
         loadWatchPage(); 
+        renderWatchlistVideos(videoData);
     } else {
       renderVideoList(videoData);
     }
@@ -102,10 +103,10 @@ function renderVideoList(dataArray) {
   if (videoContainer && template){
     const fragment = document.createDocumentFragment();
       dataArray.forEach(data => {
-          // 1. cloneNode 함수를 사용하여 노드들이 개별적으로 동작하도록 깊은 복사함
+          // cloneNode 함수를 사용하여 노드들이 개별적으로 동작하도록 깊은 복사함
           const newCard = template.content.cloneNode(true).firstElementChild;
 
-          // 2. 복제된 노드 내용 수정
+          // 복제된 노드 내용 수정
           newCard.href = `watch.html?id=${data.id}`;
           
           // 자식 요소 내용 수정
@@ -115,12 +116,40 @@ function renderVideoList(dataArray) {
           newCard.querySelector('.video-channel').textContent = data.channel;
           newCard.querySelector('.video-views').textContent = `${data.views} • ${data.time}`;
 
-          // 3. fragment에 추가하여 바로 HTML에 삽입되지 않고, 임시로 데이터들을 담아둠
+          // fragment에 추가하여 바로 HTML에 삽입되지 않고, 임시로 데이터들을 담아둠
           fragment.appendChild(newCard);
       });
-    // 4. HTML에 필요한 노드들을 한 번에 삽입
+    // HTML에 필요한 노드들을 한 번에 삽입
     videoContainer.appendChild(fragment);
   }
+}
+
+
+// watch.html에서 다음 동영상 리스트를 렌더링하는 함수
+function renderWatchlistVideos(dataArray) {
+    const playlistContainer = document.querySelector('.playlist-videos');
+    const playlistTemplate = document.getElementById('playlist-card-template');
+
+    if (playlistContainer && playlistTemplate) {
+
+        const fragment = document.createDocumentFragment();
+
+        dataArray.forEach(data => {
+            const newCard = playlistTemplate.content.cloneNode(true).firstElementChild;
+
+            newCard.href = `watch.html?id=${data.id}`;
+            
+            newCard.querySelector('img').src = data.img;
+            newCard.querySelector('img').alt = data.title;
+            newCard.querySelector('.video-title').textContent = data.title;
+            newCard.querySelector('.video-channel').textContent = data.channel;
+            newCard.querySelector('.video-views').textContent = `${data.views} • ${data.time}`;
+
+            fragment.appendChild(newCard);
+        });
+
+        playlistContainer.appendChild(fragment);
+    }
 }
 
 
