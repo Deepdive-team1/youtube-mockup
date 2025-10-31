@@ -81,7 +81,7 @@ const postPromise = fetch('https://jsonplaceholder.typicode.com/posts')
     if (window.location.pathname.includes('watch.html')) {
         loadWatchPage(); 
     } else {
-        renderVideoList(videoData);
+      renderVideoList(videoData);
     }
     
   }).catch((error) => {
@@ -214,7 +214,7 @@ function loadWatchPage() {
   document.querySelector('.watch-title').textContent = video.title;
   document.querySelector('.channel-name').textContent = video.channel;
   document.querySelector('.channel-subs').textContent = `구독자 ${video.subss}`; 
-  document.querySelector('.action-buttons button:first-child').innerHTML = `<i class="bi bi-hand-thumbs-up"></i> ${video.thumbs}`; 
+  document.querySelector('.action-buttons button:first-child').innerHTML = `<i class="bi bi-hand-thumbs-up"></i>&nbsp;${video.thumbs}`; 
 
   const descriptionBox = document.querySelector('.description-box');
   descriptionBox.querySelector('p:first-child').textContent = `조회수 ${video.views} • ${video.time}`;
@@ -224,7 +224,7 @@ function loadWatchPage() {
 
 
 
-//좋아요, 싫어요 버튼 토글
+// 좋아요, 싫어요 버튼 토글
 document.querySelectorAll(".feedback-buttons").forEach(btn => {
   btn.addEventListener("click", () => {
 
@@ -237,5 +237,16 @@ document.querySelectorAll(".feedback-buttons").forEach(btn => {
     iconElement.classList.remove(iconClass);
     iconElement.classList.add(newIconClass);
     
+  })
+})
+
+
+
+// 공유 버튼 토글
+document.querySelectorAll(".subscribe-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    btn.classList.toggle("subscribed");
+    btn.innerHTML = btn.classList.contains("subscribed") ? 
+      `<i class="bi bi-bell"></i>&nbsp;<i class="bi bi-chevron-down"></i>` : "구독";
   })
 })
