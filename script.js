@@ -201,13 +201,16 @@ function loadWatchPage() {
   const video = videoData.find(item => item.id === videoId); 
 
   //url이 잘못된 경우 
-  // if (!video) {
-  //   alert("비디오 정보를 찾을 수 없습니다. 메인 페이지로 이동합니다.");
-  //   window.location.href = "index.html";
-  //   return;
-  // }
+  if (!video) {
+    alert("비디오 정보를 찾을 수 없습니다. 메인 페이지로 이동합니다.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  console.log(video);
   
-  document.querySelector('.video-player img').src = video.img;
+  // 영상 api를 바로 삽입하여 썸네일 이미지를 적용시킬 필요가 없는 상태이므로 주석처리함
+  //document.querySelector('.video-player img').src = video.img;
   document.querySelector('.watch-title').textContent = video.title;
   document.querySelector('.channel-name').textContent = video.channel;
   document.querySelector('.channel-subs').textContent = `구독자 ${video.subss}`; 
@@ -218,9 +221,7 @@ function loadWatchPage() {
   descriptionBox.querySelector('p:last-child').innerHTML = video.description; 
 }
 
-if (window.location.pathname.includes('watch.html')) {
-    loadWatchPage(); 
-}
+
 
 
 //좋아요, 싫어요 버튼 토글
