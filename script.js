@@ -175,10 +175,11 @@ if (toggleBtn) {
 // 검색 필터링
 const searchInput = document.querySelector(".header-center input");
 const searchBtn = document.querySelector(".search-btn");
-const videoCards = document.querySelectorAll(".video-card"); // index.html에만 있음
 
 function filterVideos() {
   const query = searchInput.value.trim().toLowerCase();
+
+  const videoCards = document.querySelectorAll(".video-card-link"); // index.html에만 있음
 
   if (videoCards.length > 0) {
     let cardCount = 0;

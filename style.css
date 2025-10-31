@@ -141,12 +141,17 @@ aside section li:first-child {
 .video-section {
   flex: 1;
   height: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  /* grid-template-columns: repeat(3, 1fr); */
   gap: 16px;
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
+}
+
+.video-card-link {
+  flex: 1 0 300px;
 }
 
 .video-card img {
@@ -217,14 +222,20 @@ h3,
 }
 
 @media (max-width: 1000px) {
-  .video-section {
-    grid-template-columns: repeat(2, 1fr);
+  .video-card-link {
+    flex: 1 0 400px;
+    min-width: 0;
   }
 }
 
 @media (max-width: 600px) {
   .video-section {
-    grid-template-columns: 1fr;
+    padding: 10px;
+    justify-content: center;
+  }
+  .video-card-link {
+    flex: 1 0 95%;
+    max-width: 400px;
   }
 }
 
