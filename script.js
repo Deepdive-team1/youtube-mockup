@@ -132,3 +132,20 @@ function loadWatchPage() {
 if (window.location.pathname.includes('watch.html')) {
     loadWatchPage(); 
 }
+
+
+//좋아요, 싫어요 버튼 토글
+document.querySelectorAll(".feedback-buttons").forEach(btn => {
+  btn.addEventListener("click", () => {
+
+    const iconElement = btn.querySelector('i');
+    const iconClass = btn.classList.contains('unlike')? 'bi-hand-thumbs-down' : 'bi-hand-thumbs-up';
+
+    btn.classList.toggle("clicked");
+
+    const newIconClass = btn.classList.contains("clicked")? `${iconClass}-fill`:iconClass
+    iconElement.classList.remove(iconClass);
+    iconElement.classList.add(newIconClass);
+    
+  })
+})
