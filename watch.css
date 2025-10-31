@@ -9,7 +9,6 @@
   flex-wrap: wrap; /* 화면이 좁아지면 줄바꿈 */
   justify-content: center;
   padding: 24px;
-  padding-top: 60px;
   gap: 24px;
   overflow: auto;
 }
