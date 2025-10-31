@@ -15,7 +15,7 @@ header {
   white-space: nowrap;
   padding: 14px 16px;
   gap: 16px;
-  height: 30px;
+  height: 60px;
   width: 100%;
   position: fixed;
   top: 0;
@@ -23,6 +23,7 @@ header {
   right: 0;
   z-index: 1000;
   background-color: #f8f8f8;
+  box-sizing: border-box;
 }
 
 .header-left,
