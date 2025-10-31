@@ -57,8 +57,8 @@ const postPromise = fetch('https://jsonplaceholder.typicode.com/posts')
     // 데이터 구조에 post 데이터를 넣고, 필요한 부분을 메꿔넣음
     videoData = postData.map((post) => {
       
-      // placehold.co의 사진을 일괄적용
-      const imgUrl = "https://placehold.co/600x400"; 
+      // picsum.photos의 사진을 동적으로 적용
+      const imgUrl = `https://picsum.photos/seed/${post.id}/600/350`; 
       
       // 데이터 객체 생성
       const newVideo = {
