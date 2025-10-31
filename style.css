@@ -1,8 +1,10 @@
 body {
   margin: 0;
+  height: 100vh;
   font-family: 'Arial', sans-serif;
   box-sizing: border-box;
   background-color: #f8f8f8;
+  overflow: hidden;
 }
 /* 헤더 */
 header {
@@ -13,6 +15,14 @@ header {
   white-space: nowrap;
   padding: 14px 16px;
   gap: 16px;
+  height: 30px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #f8f8f8;
 }
 
 .header-left,
@@ -73,16 +83,20 @@ button {
 
 main {
   display: flex;
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
+  height: calc(100vh - 60px);
+  margin-top: 60px;
 }
+
 /* 메뉴바 */
 aside {
+  height: 100%;
   min-width: 200px;
-  min-height: 100vh;
   padding: 16px 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   gap: 20px; 
 }
 
@@ -124,11 +138,14 @@ aside section li:first-child {
 
 /* 영상목록 */
 .video-section {
+  flex: 1;
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   padding: 20px;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .video-card img {
