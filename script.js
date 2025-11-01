@@ -233,6 +233,8 @@ function filterVideos() {
     
     if(cardCount === 0 && query !== ""){
       alert('조건에 맞는 영상이 없습니다.');
+      window.location.href = `index.html`;
+
     }
 
   } else { 
