@@ -1,8 +1,10 @@
 body {
   margin: 0;
+  height: 100vh;
   font-family: 'Arial', sans-serif;
   box-sizing: border-box;
   background-color: #f8f8f8;
+  overflow: hidden;
 }
 /* 헤더 */
 header {
@@ -13,6 +15,15 @@ header {
   white-space: nowrap;
   padding: 14px 16px;
   gap: 16px;
+  height: 60px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #f8f8f8;
+  box-sizing: border-box;
 }
 
 .header-left,
@@ -73,16 +84,20 @@ button {
 
 main {
   display: flex;
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
+  height: calc(100vh - 60px);
+  margin-top: 60px;
 }
+
 /* 메뉴바 */
 aside {
+  height: 100%;
   min-width: 200px;
-  min-height: 100vh;
   padding: 16px 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   gap: 20px; 
 }
 
@@ -124,18 +139,20 @@ aside section li:first-child {
 
 /* 영상목록 */
 .video-section {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  /* grid-template-columns: repeat(3, 1fr); */
   gap: 16px;
   padding: 20px;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
-.video-card img {
-  width: 100%;
-  border-radius: 12px;
-  cursor: pointer;
-} 
+.video-card-link {
+  flex: 0 0 auto;
+}
 
 .video-card {
   overflow: hidden;
@@ -151,6 +168,8 @@ aside section li:first-child {
 .video-card img {
   width: 100%;
   object-fit: cover;
+  border-radius: 12px;
+  cursor: pointer;
 } 
 
 .video-info {
@@ -193,22 +212,41 @@ h3,
 /* 반응형 */
 
 @media (max-width: 600px) {
-  aside {
+  .sidebar {
     display: none;
   }
 }
 
 @media (max-width: 1000px) {
-  .video-section {
-    grid-template-columns: repeat(2, 1fr);
+  .video-card-link {
+        flex: 0 0 auto;
+        width: calc(50% - 8px);
+  }
+
+  .header-center {
+    display: none;
   }
 }
 
 @media (max-width: 600px) {
   .video-section {
-    grid-template-columns: 1fr;
+    justify-content: center;
+  }
+  .video-card-link {
+    flex: 1 1 100%;
   }
 }
+
+@media (min-width: 1000px) {
+  .search-btn-mobile {
+    display: none;
+  }
+  .video-card-link {
+    flex: 0 0 auto;
+    width: calc(33.3333% - 10.6666px);
+  }
+}
+
 
 /* 다크모드 */
 body.dark-mode {
