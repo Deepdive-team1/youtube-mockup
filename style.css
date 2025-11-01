@@ -230,7 +230,6 @@ h3,
 
 @media (max-width: 600px) {
   .video-section {
-    padding: 10px;
     justify-content: center;
   }
   .video-card-link {

@@ -16,7 +16,7 @@
 /* 1. 왼쪽: 동영상 플레이어 섹션 */
 .video-player-section {
   flex: 1; /* 남는 공간 모두 차지 */
-  min-width: 400px; /* 최소 너비 */
+  min-width: 300px; /* 최소 너비 */
   max-width: 1280px;
 }
 
