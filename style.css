@@ -151,14 +151,8 @@ aside section li:first-child {
 }
 
 .video-card-link {
-  flex: 1 0 300px;
+  flex: 0 0 auto;
 }
-
-.video-card img {
-  width: 100%;
-  border-radius: 12px;
-  cursor: pointer;
-} 
 
 .video-card {
   overflow: hidden;
@@ -174,6 +168,8 @@ aside section li:first-child {
 .video-card img {
   width: 100%;
   object-fit: cover;
+  border-radius: 12px;
+  cursor: pointer;
 } 
 
 .video-info {
@@ -223,8 +219,8 @@ h3,
 
 @media (max-width: 1000px) {
   .video-card-link {
-    flex: 1 0 400px;
-    min-width: 0;
+        flex: 0 0 auto;
+        width: calc(50% - 8px);
   }
 
   .header-center {
@@ -237,8 +233,7 @@ h3,
     justify-content: center;
   }
   .video-card-link {
-    flex: 1 0 95%;
-    max-width: 400px;
+    flex: 1 1 100%;
   }
 }
 
@@ -246,7 +241,12 @@ h3,
   .search-btn-mobile {
     display: none;
   }
+  .video-card-link {
+    flex: 0 0 auto;
+    width: calc(33.3333% - 10.6666px);
+  }
 }
+
 
 /* 다크모드 */
 body.dark-mode {
