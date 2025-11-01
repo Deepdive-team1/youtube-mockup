@@ -110,7 +110,6 @@ function renderWatchlistVideos(dataArray) {
     if (playlistContainer && playlistTemplate) {
 
         const fragment = document.createDocumentFragment();
-        console.log("sw 2")
 
         dataArray.forEach(data => {
             const newCard = playlistTemplate.content.cloneNode(true).firstElementChild;
