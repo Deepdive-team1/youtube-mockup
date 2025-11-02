@@ -4,7 +4,7 @@ let videoData = [];
 
 //무한 스크롤 생성
 let page = 0; //페이지 번호
-const pageSize = 12; // 한 페이지에 들어갈 데이터량 
+const pageSize = 15; // 한 페이지에 들어갈 데이터량 
 let isLoading = false; // 데이터 중복 호출 방지 
 
 // 비디오 없음 오류 수정: 전역의 데이터로 저장하는 변수와 데이터 신규 추가하는 변수를 분리
