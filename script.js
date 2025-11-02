@@ -1,62 +1,38 @@
-// script.js
-
-//기본 영상리스트 정보 
-// const videoData = [
-//   {
-//     id: 1,
-//     title: "고양이 Cat 영상 이미지",
-//     channel: "고양이",
-//     img: "images/cat.png",
-//     description: "귀여운 고양이 영상입니다. <br /> 매일 새로운 고양이 영상이 올라옵니다.",
-//     views: "10만회",
-//     time: "2일 전",
-//     subss: "100만명",
-//     thumbs: "1.2만",
-//   },
-//   {
-//     id: 2,
-//     title: "강아지 Dog 영상 이미지",
-//     channel: "강아지",
-//     img: "images/dog.png",
-//     description: "활발한 강아지들의 일상입니다. <br /> 지친 하루에 활력을 줍니다.",
-//     views: "10만회",
-//     time: "2일 전",
-//     subss: "112만명",
-//     thumbs: "1.5만",
-//   },
-//   {
-//     id: 3,
-//     title: "펭귄 Penguin 영상 이미지",
-//     channel: "펭귄",
-//     img: "images/penguin.png",
-//     description: "남극의 귀염둥이 펭귄 영상입니다. <br /> 추위를 잊게 하는 매력!",
-//     views: "10만회",
-//     time: "2일 전",
-//     subss: "80만명",
-//     thumbs: "1만",
-//   },
-// ];
-
-
-
-
-
-// jsonplaceholder 데이터 받아오기
-// postData를 가져온 후, 필요한 부분은 랜덤값으로 채워넣어 사용함
-let postData = [];
+//jsonplaceholder 데이터 받아오기
+//postData를 가져온 후, 필요한 부분은 랜덤값으로 채워넣어 사용함
 let videoData = [];
 
-const postPromise = fetch('https://jsonplaceholder.typicode.com/posts')
+//무한 스크롤 생성
+let page = 0; //페이지 번호
+const pageSize = 12; // 한 페이지에 들어갈 데이터량 
+let isLoading = false; // 데이터 중복 호출 방지 
+
+// 비디오 없음 오류 수정: 전역의 데이터로 저장하는 변수와 데이터 신규 추가하는 변수를 분리
+function fnPostPromise(){
+  //데이터 호출 시작
+  isLoading = true;
+
+  fetch('https://jsonplaceholder.typicode.com/posts')
   .then((response) => response.json())
   .then((results) => {
     console.log("데이터 불러오기 성공");
 
-    // results는 postData의 결과 배열입니다.
-    postData = results;
+    //results는 postData의 결과 배열입니다.
+    //postData = results;
+    //무한 스크롤 생성을 위해서 한번에 삽입하는 데이터량 조절
+    const start = page * pageSize;
+    const end = ++page * pageSize;
+ 
+    let postData = [];
+    // 데이터 초기화를 위한 전역->지역 변수 변경
     
+    results.slice(start, end).forEach(obj => {
+      postData.push(obj);  
+    });
+
     // 데이터 구조에 post 데이터를 넣고, 필요한 부분을 메꿔넣음
-    videoData = postData.map((post) => {
-      
+    let newVideos = postData.map((post) => {
+
       // picsum.photos의 사진을 동적으로 적용
       const imgUrl = `https://picsum.photos/seed/${post.id}/600/350`; 
       
@@ -72,26 +48,25 @@ const postPromise = fetch('https://jsonplaceholder.typicode.com/posts')
         subss: `${Math.floor(Math.random() * 50) + 50}만명`, 
         thumbs: `${Math.floor(Math.random() * 20) + 1}만`, 
       };
-      
+      videoData.push(newVideo);
+
       return newVideo;
     }); 
 
-
     // 데이터가 준비된 후에 렌더링 및 페이지 로딩 함수 호출
     if (window.location.pathname.includes('watch.html')) {
+
         loadWatchPage(); 
-        renderWatchlistVideos(videoData);
+        renderWatchlistVideos(newVideos);
     } else {
-      renderVideoList(videoData);
+      renderVideoList(newVideos);
     }
-    
+
   }).catch((error) => {
     console.error("데이터 받아오기 실패:", error);
   });
 
-
-
-
+}
 
 
 // 화면상에 영상 리스트 추가
@@ -102,6 +77,7 @@ const template = document.getElementById('video-card-template');
 function renderVideoList(dataArray) {
   if (videoContainer && template){
     const fragment = document.createDocumentFragment();
+
       dataArray.forEach(data => {
           // cloneNode 함수를 사용하여 노드들이 개별적으로 동작하도록 깊은 복사함
           const newCard = template.content.cloneNode(true).firstElementChild;
@@ -121,6 +97,8 @@ function renderVideoList(dataArray) {
       });
     // HTML에 필요한 노드들을 한 번에 삽입
     videoContainer.appendChild(fragment);
+    //데이터 호출 완료
+    isLoading = false;
   }
 }
 
@@ -136,7 +114,7 @@ function renderWatchlistVideos(dataArray) {
 
         dataArray.forEach(data => {
             const newCard = playlistTemplate.content.cloneNode(true).firstElementChild;
-
+  
             newCard.href = `watch.html?id=${data.id}`;
             
             newCard.querySelector('img').src = data.img;
@@ -149,9 +127,67 @@ function renderWatchlistVideos(dataArray) {
         });
 
         playlistContainer.appendChild(fragment);
+        //데이터 호출 완료
+        isLoading = false;
     }
 }
 
+// 🔍 버튼 클릭 → 검색창 열기 & 아이콘 숨기기
+const searchToggleBtn = document.querySelector('.search-toggle-btn');
+const headerCenter = document.querySelector('.header-center');
+const headerRight = document.querySelector('.header-right');
+
+searchToggleBtn.addEventListener('click', (e) => {
+  e.stopPropagation(); // 클릭 버블링 방지
+  headerCenter.classList.add('show');
+  headerRight.classList.add('hide-search-icon');
+
+  // 인풋에 포커스
+  const input = headerCenter.querySelector('input');
+  input.focus();
+});
+
+// 🔍 외부 클릭 시 닫기
+document.addEventListener('click', (e) => {
+  if (
+    headerCenter.classList.contains('show') &&
+    !headerCenter.contains(e.target) &&
+    !searchToggleBtn.contains(e.target)
+  ) {
+    headerCenter.classList.remove('show');
+    headerRight.classList.remove('hide-search-icon');
+    resetVideoFilter();
+  }
+});
+
+function resetVideoFilter() {
+  const videoCards = document.querySelectorAll('.video-card-link');
+  videoCards.forEach((card) => {
+    card.style.display = ''; // 전부 다시 보이기
+  });
+  const searchInput = document.querySelector('.header-center input');
+  if (searchInput) searchInput.value = ''; // 검색어 초기화
+}
+
+// 사이드바 토글
+const menuBtn = document.querySelector('.menu-btn');
+const sidebar = document.querySelector('.sidebar');
+
+// 오버레이 생성 (배경 클릭 시 닫기용)
+let overlay = document.createElement('div');
+overlay.classList.add('overlay');
+document.body.appendChild(overlay);
+
+menuBtn.addEventListener('click', (e) => {
+  e.stopPropagation(); // 이벤트 버블링 방지
+  sidebar.classList.toggle('show');
+  overlay.classList.toggle('active');
+});
+
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('show');
+  overlay.classList.remove('active');
+});
 
 
 
@@ -198,6 +234,8 @@ function filterVideos() {
     
     if(cardCount === 0 && query !== ""){
       alert('조건에 맞는 영상이 없습니다.');
+      window.location.href = `index.html`;
+
     }
 
   } else { 
@@ -229,14 +267,13 @@ function loadWatchPage() {
   const videoId = parseInt(urlParams.get('id'));
 
   const video = videoData.find(item => item.id === videoId); 
-
+  console.log(videoId);
   //url이 잘못된 경우 
   if (!video) {
     alert("비디오 정보를 찾을 수 없습니다. 메인 페이지로 이동합니다.");
     window.location.href = "index.html";
     return;
   }
-
   console.log(video);
   
   // 영상 api를 바로 삽입하여 썸네일 이미지를 적용시킬 필요가 없는 상태이므로 주석처리함
@@ -280,3 +317,15 @@ document.querySelectorAll(".subscribe-btn").forEach(btn => {
       `<i class="bi bi-bell"></i>&nbsp;<i class="bi bi-chevron-down"></i>` : "구독";
   })
 })
+
+
+//초기 데이터 생성  
+fnPostPromise();
+
+
+
+
+
+
+
+
