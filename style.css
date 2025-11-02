@@ -1,8 +1,6 @@
 body {
   /* display:flex;
   flex-direction: column; */
-  /* display:flex;
-  flex-direction: column; */
   margin: 0;
   height: 100vh;
   font-family: 'Arial', sans-serif;
@@ -30,26 +28,11 @@ header {
   z-index: 1000;
   background-color: #f8f8f8;
   box-sizing: border-box;
-  height: 60px;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background-color: #f8f8f8;
-  box-sizing: border-box;
-  height: 60px;
-  width: 100%;
-  /* position: fixed; */ 
-  /* watch에서 상단으로 main딸려올라가는 이벤트 생김 */
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background-color: #f8f8f8;
-  box-sizing: border-box;
+  /* height: 60px;
+  width: 100%; */
 }
+/* 병합충돌 */
+
 
 .header-left,
 .header-center,
@@ -142,9 +125,6 @@ aside {
 /* 토글시 효과 */
   transition: transform 0.3s ease;
 
-/* 토글시 효과 */
-  transition: transform 0.3s ease;
-
 }
 
 aside ul {
@@ -184,24 +164,27 @@ aside section li:first-child {
 }
 /* contentpage-영상목록 */
 .video-section {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  /* grid-template-columns: repeat(3, 1fr); */
   gap: 16px;
   padding: 20px;
   box-sizing: border-box;
-}
-
-.video-card-link {
-  flex: 1 0 300px;
   overflow-y: auto;
 }
+ /* 충돌 */
+
 
 .video-card-link {
   flex: 0 0 auto;
+  /* overflow-y: auto; */
 }
+ /* 충돌 */
 
 .video-card {
-  /* overflow: hidden; */
+  overflow-y: auto;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 

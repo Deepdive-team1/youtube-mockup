@@ -267,14 +267,13 @@ function loadWatchPage() {
   const videoId = parseInt(urlParams.get('id'));
 
   const video = videoData.find(item => item.id === videoId); 
-
+  console.log(videoId);
   //url이 잘못된 경우 
   if (!video) {
     alert("비디오 정보를 찾을 수 없습니다. 메인 페이지로 이동합니다.");
     window.location.href = "index.html";
     return;
   }
-
   console.log(video);
   
   // 영상 api를 바로 삽입하여 썸네일 이미지를 적용시킬 필요가 없는 상태이므로 주석처리함
