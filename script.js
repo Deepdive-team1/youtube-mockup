@@ -259,3 +259,74 @@ if (searchBtn && searchInput ) {
     }
   });
 }
+
+//watch 로딩 함수 
+function loadWatchPage() {
+  //url과 id번호 가져오기
+  const urlParams = new URLSearchParams(window.location.search);
+  const videoId = parseInt(urlParams.get('id'));
+
+  const video = videoData.find(item => item.id === videoId); 
+
+  //url이 잘못된 경우 
+  if (!video) {
+    alert("비디오 정보를 찾을 수 없습니다. 메인 페이지로 이동합니다.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  console.log(video);
+  
+  // 영상 api를 바로 삽입하여 썸네일 이미지를 적용시킬 필요가 없는 상태이므로 주석처리함
+  //document.querySelector('.video-player img').src = video.img;
+  document.querySelector('.watch-title').textContent = video.title;
+  document.querySelector('.channel-name').textContent = video.channel;
+  document.querySelector('.channel-subs').textContent = `구독자 ${video.subss}`; 
+  document.querySelector('.action-buttons button:first-child').innerHTML = `<i class="bi bi-hand-thumbs-up"></i>&nbsp;${video.thumbs}`; 
+
+  const descriptionBox = document.querySelector('.description-box');
+  descriptionBox.querySelector('p:first-child').textContent = `조회수 ${video.views} • ${video.time}`;
+  descriptionBox.querySelector('p:last-child').innerHTML = video.description; 
+}
+
+
+
+
+// 좋아요, 싫어요 버튼 토글
+document.querySelectorAll(".feedback-buttons").forEach(btn => {
+  btn.addEventListener("click", () => {
+
+    const iconElement = btn.querySelector('i');
+    const iconClass = btn.classList.contains('unlike')? 'bi-hand-thumbs-down' : 'bi-hand-thumbs-up';
+
+    btn.classList.toggle("clicked");
+
+    const newIconClass = btn.classList.contains("clicked")? `${iconClass}-fill`:iconClass
+    iconElement.classList.remove(iconClass);
+    iconElement.classList.add(newIconClass);
+    
+  })
+})
+
+
+
+// 공유 버튼 토글
+document.querySelectorAll(".subscribe-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    btn.classList.toggle("subscribed");
+    btn.innerHTML = btn.classList.contains("subscribed") ? 
+      `<i class="bi bi-bell"></i>&nbsp;<i class="bi bi-chevron-down"></i>` : "구독";
+  })
+})
+
+
+//초기 데이터 생성  
+fnPostPromise();
+
+
+
+
+
+
+
+
