@@ -9,7 +9,7 @@
     />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="watch.css" />
-    <title>YouTube - Cat Video</title>
+    <title>YouTube</title>
   </head>
   <body>
     <header>
@@ -26,42 +26,68 @@
       </div>
 
       <div class="header-right">
+        <button class="search-toggle-btn"><i class="bi bi-search"></i></button>
+        <!-- 모바일용 서치버튼추가_ 별도 class나 iD지정 안함 -->
         <button class="bell-btn"><i class="bi bi-bell"></i></button>
         <button class="user-btn"><i class="bi bi-person-circle"></i></button>
         <button class="toggle-btn"><i class="bi bi-moon"></i></button>
       </div>
     </header>
 
-    <main class="watch-container">
+    <main class="watch-container" id="watchContainer">
+      <aside class="sidebar" >
+        <nav>
+          <ul>
+            <li><i class="bi bi-house"></i>홈</li>
+            <li><i class="bi bi-hand-thumbs-up"></i>구독</li>
+            <li><i class="bi bi-bag"></i>보관함</li>
+            <li><i class="bi bi-tv"></i>시청 기록</li>
+          </ul>
+        </nav>
+        <section>
+          <ul>
+            <li>구독 ></li>
+            <li><i class="bi bi-person-circle"></i>Oh</li>
+            <li><i class="bi bi-person-circle"></i>Jay</li>
+            <li><i class="bi bi-person-circle"></i>M</li>
+            <li><i class="bi bi-person-circle"></i>Juyoung</li>
+          </ul>
+        </section>
+      </aside>
+
       <section class="video-player-section">
         <div class="video-player">
           <iframe width="100%" height="100%" src="https://www.youtube.com/embed/CAwS1x2Sa5M?si=_Td1UbtOJe3UOt1Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/CAwS1x2Sa5M?si=_Td1UbtOJe3UOt1Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+         </div>
 
-        <h1 class="watch-title"></h1>
+        <h1 class="watch-title">고양이 Cat 영상 이미지</h1>
 
         <div class="watch-info-bar">
           <div class="channel-info">
             <i class="bi bi-person-circle channel-icon"></i>
             <div class="channel-text">
-              <p class="channel-name"></p>
+              <p class="channel-name">고양이</p>
               <p class="channel-subs">구독자 100만명</p>
             </div>
             <button class="subscribe-btn">구독</button>
           </div>
 
           <div class="action-buttons">
-            <button class="feedback-buttons"><i class="bi bi-hand-thumbs-up"></i> 1.2만</button>
-            <button class="feedback-buttons unlike"><i class="bi bi-hand-thumbs-down"></i></button>
-            <button><i class="bi bi-share"></i>&nbsp;&nbsp;공유</button>
-            <button><i class="bi bi-download"></i>&nbsp;&nbsp;저장</button>
+            <button><i class="bi bi-hand-thumbs-up"></i> 1.2만</button>
+            <button><i class="bi bi-hand-thumbs-down"></i></button>
+            <button><i class="bi bi-share"></i> 공유</button>
+            <button><i class="bi bi-download"></i> 저장</button>
             <button><i class="bi bi-three-dots"></i></button>
           </div>
         </div>
 
         <div class="description-box">
-          <p></p>
-          <p></p>
+          <p>조회수 10만회 • 2일 전</p>
+          <p>
+            귀여운 고양이 영상입니다. <br />
+            매일 새로운 고양이 영상이 올라옵니다.
+          </p>
         </div>
         <div class="comments-section">
             <div class="comments-header">
@@ -138,9 +164,23 @@
           </template>
         </div>
       </aside>
-      
+
     </main>
     <script src="script.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script>
+      //window.addEventListener의 'scroll' 미동작으로 watch-container에 id를 지정하고 스크롤 확인 
+      //mainContainer , watchContainer 리스너가 둘다 script.js에 들어가면, 후의 리스너 미동작으로 html에 생성
+      const box = document.getElementById('watchContainer');
+        box.addEventListener('scroll', (e) => {
+          if ((box.scrollTop + box.offsetHeight) >= box.scrollHeight - 100) {
+            if (!isLoading) {
+              fnPostPromise();
+            }
+          }
+      });
+    </script>
+
   </body>
 </html>

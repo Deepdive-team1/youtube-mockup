@@ -1,10 +1,13 @@
 body {
+  /* display:flex;
+  flex-direction: column; */
   margin: 0;
   height: 100vh;
   font-family: 'Arial', sans-serif;
   box-sizing: border-box;
   background-color: #f8f8f8;
   overflow: hidden;
+  /* padding-top:60px; */
 }
 /* 헤더 */
 header {
@@ -17,14 +20,19 @@ header {
   gap: 16px;
   height: 60px;
   width: 100%;
-  position: fixed;
+  /* position: fixed; */ 
+  /* watch에서 상단으로 main딸려올라가는 이벤트 생김 */
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
   background-color: #f8f8f8;
   box-sizing: border-box;
+  /* height: 60px;
+  width: 100%; */
 }
+/* 병합충돌 */
+
 
 .header-left,
 .header-center,
@@ -34,19 +42,6 @@ header {
   gap: 8px;
 }
 
-.header-center {
-  flex: 1;                  
-  max-width: 600px;       
-}
-
-.header-center input {
-  flex: 1;
-  min-width: 80px;
-  padding: 10px;
-  box-sizing: border-box;
-  border: 1px solid gray;
-  border-radius: 10px;
-}
 /* 로고 버튼 스타일 */
 .logo-btn {
   display: flex; /* 아이콘과 텍스트 정렬 */
@@ -77,16 +72,44 @@ button {
   margin-right: 5px;
 }
 
-.search-btn > i {
+.header-center {
+  flex: 1;                  
+  max-width: 600px;       
+}
+
+.header-center input {
+  flex: 1;
+  min-width: 80px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+.header-center > .header-center {
+  flex: 1;                  
+  max-width: 600px;       
+}
+
+.header-center input {
+  flex: 1;
+  min-width: 80px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+.header-center > .search-btn > i {
   font-size: 16px;
   transform: translateX(-40px);
 }
 
+/* 메인 */
 main {
   display: flex;
   min-height: calc(100vh - 60px);
   height: calc(100vh - 60px);
-  margin-top: 60px;
+  /* margin-top: 60px; */
+
 }
 
 /* 메뉴바 */
@@ -99,6 +122,9 @@ aside {
   flex-direction: column;
   flex-shrink: 0;
   gap: 20px; 
+/* 토글시 효과 */
+  transition: transform 0.3s ease;
+
 }
 
 aside ul {
@@ -136,8 +162,7 @@ aside section li:first-child {
   font-weight: 600;
   color: #555;
 }
-
-/* 영상목록 */
+/* contentpage-영상목록 */
 .video-section {
   flex: 1;
   height: 100%;
@@ -149,13 +174,17 @@ aside section li:first-child {
   box-sizing: border-box;
   overflow-y: auto;
 }
+ /* 충돌 */
+
 
 .video-card-link {
   flex: 0 0 auto;
+  /* overflow-y: auto; */
 }
+ /* 충돌 */
 
 .video-card {
-  overflow: hidden;
+  overflow-y: auto;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -210,45 +239,190 @@ h3,
 }
 
 /* 반응형 */
+@media (min-width:600px){
+  .header-right .search-toggle-btn{
+    display: none;}
+}
 
 @media (max-width: 600px) {
   .sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    background-color: #f8f8f8;
+    transform: translateX(-100%); /* 숨김 상태 */
+    width: 200px;
+    z-index: 998;
+    box-shadow: 2px 0 6px rgba(0,0,0,0.2);
+  }
+
+  body.dark-mode .sidebar {
+    background-color: #202020;
+  }
+
+  /* show 클래스가 붙으면 나타남 */
+  .sidebar.show {
+    transform: translateX(0);
+  }
+
+  /* 오버레이 배경 */
+  .overlay {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 997;
     display: none;
   }
-}
 
-@media (max-width: 1000px) {
-  .video-card-link {
-        flex: 0 0 auto;
-        width: calc(50% - 8px);
+  .overlay.active {
+    display: block;
   }
 
   .header-center {
     display: none;
+    flex: 1;
+    justify-content: center;
+    transition: all 0.3s ease;
   }
-}
+  /* 🔥 토글 시 나타남 */
+  .header-center.show {
+    display: flex;          
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #f8f8f8;
+    padding: 10px;
+    z-index: 999;
+  }
 
-@media (max-width: 600px) {
+  body.dark-mode .header-center.show {
+    background-color: #202020;
+  }
+}  
+  /* 검색창이 열릴 때는 아이콘 숨김 */
+  .header-right.hide-search-icon .search-toggle-btn {
+    display: none;
+  }
   .video-section {
+    /* padding: 10px; */
     justify-content: center;
   }
   .video-card-link {
-    flex: 1 1 100%;
+    flex: 1 0 95%;
+    max-width: 300px;
   }
-}
 
-@media (min-width: 1000px) {
-  .search-btn-mobile {
-    display: none;
-  }
+@media (max-width: 1080px) {
   .video-card-link {
-    flex: 0 0 auto;
-    width: calc(33.3333% - 10.6666px);
+    flex: 1 0 400px;
+    min-width: 0;
   }
 }
 
+/* width 320~280px 이하 - 극소형 기기 또는 폴드계열 대응 */
 
-/* 다크모드 */
+@media (max-width: 320px) {
+  header {
+    padding: 6px 8px;
+    gap: 4px;
+  }
+
+  .header-left,
+  .header-right {
+    gap: 4px;
+  }
+
+  .header-center {
+    max-width: 180px;
+  }
+
+  .header-center input {
+    padding: 6px 6px;
+    font-size: 12px;
+  }
+  .logo-btn i {
+    font-size: 22px;
+    margin-right: 4px;
+  }
+  .logo-btn span {
+    font-size: 14px;
+  }
+  .action-buttons {
+    transform: scale(0.65);
+    transform-origin: left top;
+  }
+
+  .subscribe-btn {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+  .video-section {
+    padding: 8px;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .video-card-link {
+    flex: 1 0 100%;
+    max-width: 100%;
+  }
+
+  .video-card {
+    border-radius: 10px;
+  }
+
+  .video-title {
+    font-size: 14px;
+  }
+  .video-channel {
+    font-size: 12px;
+  }
+  .video-views {
+    font-size: 11px;
+  }
+
+}
+
+
+@media (max-width: 280px) {
+  header {
+    gap: 4px;
+    padding: 8px;
+  }
+
+  .header-left i,
+  .header-right i {
+    font-size: 18px;
+  }
+
+  .header-center input {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .video-section {
+    padding: 7%;
+    gap: 8px;
+  }
+
+  .video-card-link {
+    flex: 1 0 90%;
+    max-width: 260px; /* 280px에서도 맞게 줄이기 */
+  }
+
+  .video-title {
+    font-size: 14px;
+  }
+  .video-channel {
+    font-size: 12px;
+  }
+}
+/* 기본 다크모드 */
 body.dark-mode {
   background-color: #202020;
   color: #f1f1f1;
