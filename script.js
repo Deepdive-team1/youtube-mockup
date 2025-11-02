@@ -7,7 +7,7 @@ let page = 0; //페이지 번호
 const pageSize = 12; // 한 페이지에 들어갈 데이터량 
 let isLoading = false; // 데이터 중복 호출 방지 
 
-//fetch 반복 사용으로 함수화
+// 비디오 없음 오류 수정: 전역의 데이터로 저장하는 변수와 데이터 신규 추가하는 변수를 분리
 function fnPostPromise(){
   //데이터 호출 시작
   isLoading = true;
@@ -31,7 +31,7 @@ function fnPostPromise(){
     });
 
     // 데이터 구조에 post 데이터를 넣고, 필요한 부분을 메꿔넣음
-    videoData = postData.map((post) => {
+    let newVideos = postData.map((post) => {
 
       // picsum.photos의 사진을 동적으로 적용
       const imgUrl = `https://picsum.photos/seed/${post.id}/600/350`; 
@@ -48,18 +48,18 @@ function fnPostPromise(){
         subss: `${Math.floor(Math.random() * 50) + 50}만명`, 
         thumbs: `${Math.floor(Math.random() * 20) + 1}만`, 
       };
+      videoData.push(newVideo);
 
       return newVideo;
     }); 
-
 
     // 데이터가 준비된 후에 렌더링 및 페이지 로딩 함수 호출
     if (window.location.pathname.includes('watch.html')) {
 
         loadWatchPage(); 
-        renderWatchlistVideos(videoData);
+        renderWatchlistVideos(newVideos);
     } else {
-      renderVideoList(videoData);
+      renderVideoList(newVideos);
     }
 
   }).catch((error) => {
