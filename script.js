@@ -1,6 +1,5 @@
 //jsonplaceholder 데이터 받아오기
 //postData를 가져온 후, 필요한 부분은 랜덤값으로 채워넣어 사용함
-let postData = [];
 let videoData = [];
 
 //무한 스크롤 생성
@@ -23,11 +22,13 @@ function fnPostPromise(){
     //무한 스크롤 생성을 위해서 한번에 삽입하는 데이터량 조절
     const start = page * pageSize;
     const end = ++page * pageSize;
-
+ 
+    let postData = [];
+    // 데이터 초기화를 위한 전역->지역 변수 변경
+    
     results.slice(start, end).forEach(obj => {
       postData.push(obj);  
     });
-
 
     // 데이터 구조에 post 데이터를 넣고, 필요한 부분을 메꿔넣음
     videoData = postData.map((post) => {
